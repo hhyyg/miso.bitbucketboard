@@ -1,6 +1,6 @@
 {
-  "name": "Miso Bitbucket Dashboard",
-  "description": "Miso Bitbucket Dashboard",
+  "name": "Bitbucket Dashboard Helpers",
+  "description": "Bitbucket Dashboard Helpers",
   "version": "1.0",
   "manifest_version": 2,
   "content_scripts": [{
