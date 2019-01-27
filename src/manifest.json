@@ -11,5 +11,10 @@
   }],
   "web_accessible_resources" : ["/dashboard.js"],
   "permissions": [
-  ]
+  ],
+  "icons": {
+    "16": "image/bit.png",
+    "48": "image/bit.png",
+    "128": "image/bit.png"
+  }
 }
