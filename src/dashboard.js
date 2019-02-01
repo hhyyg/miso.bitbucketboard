@@ -18,7 +18,7 @@ function addOpendDaysText(pullRequestRowElement, created_on) {
 
   const spanDay = getSpanDay(new Date(created_on), new Date());
   $(pullRequestRowElement)
-    .find(".sc-chAAoq small")
+    .find("small")
     .prepend(
       `<span>opened${space}<bold>${spanDay}</bold>${space}days ago,${space}</span>`
     );
