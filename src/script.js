@@ -1,6 +1,8 @@
 ﻿//@ts-check
 /// <reference path="../node_modules/@types/jquery/index.d.ts" />
 
+console.log('aaa')
+
 $(function () {
     page_overview();
 });
@@ -15,11 +17,15 @@ function injectScript(file, node) {
 // @ts-ignore
 injectScript(chrome.extension.getURL('/dashboard.js'), 'body');
 
-async function page_overview() {
+function page_overview() {
     if (location.pathname !== '/dashboard/overview') {
         return;
     }
 
-    // Click Read more button
-    await $('p button').click();
+    const clickReadmoreButtonIfExist = setInterval(() => {
+        if ($('p button').length) {
+            $('p button').click();
+            clearInterval(clickReadmoreButtonIfExist);
+        }
+    }, 1000);
 }
