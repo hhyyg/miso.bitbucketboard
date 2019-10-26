@@ -44,7 +44,6 @@ function highLightingNotApproved(pullRequestRowElement, reviewing) {
 const DecoratioPullRequestsToReview = () => {
   $("section:eq(0) table tr[data-qa='pull-request-row']").each(
     (pullRequestRowIndex, pullRequestRowElement) => {
-      console.log(pullRequestRowIndex);
       const reviewing = pullRequests.reviewing[pullRequestRowIndex];
 
       addOpendDaysText(pullRequestRowElement, reviewing.created_on);

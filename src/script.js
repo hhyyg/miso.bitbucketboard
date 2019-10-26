@@ -1,8 +1,6 @@
 ﻿//@ts-check
 /// <reference path="../node_modules/@types/jquery/index.d.ts" />
 
-console.log('aaa')
-
 $(function () {
     page_overview();
 });
