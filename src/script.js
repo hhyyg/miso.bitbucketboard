@@ -21,11 +21,4 @@ function page_overview() {
     if (location.pathname !== '/dashboard/overview') {
         return;
     }
-
-    const clickReadmoreButtonIfExist = setInterval(() => {
-        if ($('p button').length) {
-            $('p button').click();
-            clearInterval(clickReadmoreButtonIfExist);
-        }
-    }, 1000);
 }

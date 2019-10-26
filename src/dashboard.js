@@ -4,13 +4,18 @@ const space = "&nbsp;";
 
 const data = window.__initial_state__;
 const pullRequests = data.dashboard.overview.pullRequests;
-const userName = data.global.currentUser.username;
+const currentUserNickName = data.global.currentUser.nickname;
 const notApprovedColor = "#d3dded";
 
 function getSpanDay(x, y) {
   return Math.ceil((y - x) / 86400000);
 }
 
+/**
+ * Insert text 'opened * days ago,'
+ * @param {*} pullRequestRowElement 
+ * @param {*} created_on 
+ */
 function addOpendDaysText(pullRequestRowElement, created_on) {
   if (!created_on) {
     return;
@@ -27,7 +32,7 @@ function addOpendDaysText(pullRequestRowElement, created_on) {
 function highLightingNotApproved(pullRequestRowElement, reviewing) {
   const notApproved =
     reviewing.participants.filter(value => {
-      return value.user.username === userName && value.approved === false;
+      return value.user.nickname === currentUserNickName && value.approved === false;
     }).length !== 0;
 
   if (notApproved) {
@@ -36,19 +41,34 @@ function highLightingNotApproved(pullRequestRowElement, reviewing) {
 }
 
 // pull requests to review
-$("section:eq(0) table tr[data-qa='pull-request-row']").each(
-  (pullRequestRowIndex, pullRequestRowElement) => {
-    const reviewing = pullRequests.reviewing[pullRequestRowIndex];
+const DecoratioPullRequestsToReview = () => {
+  $("section:eq(0) table tr[data-qa='pull-request-row']").each(
+    (pullRequestRowIndex, pullRequestRowElement) => {
+      console.log(pullRequestRowIndex);
+      const reviewing = pullRequests.reviewing[pullRequestRowIndex];
 
-    addOpendDaysText(pullRequestRowElement, reviewing.created_on);
-    highLightingNotApproved(pullRequestRowElement, reviewing);
-  }
-);
+      addOpendDaysText(pullRequestRowElement, reviewing.created_on);
+      highLightingNotApproved(pullRequestRowElement, reviewing);
+    }
+  );
+}
 
 // your pull requests
-$("section:eq(1) table tr[data-qa='pull-request-row']").each(
-  (pullRequestRowIndex, pullRequestRowElement) => {
-    const myPullRequest = pullRequests.authored[pullRequestRowIndex];
-    addOpendDaysText(pullRequestRowElement, myPullRequest.created_on);
+const DecorationYourPullRequests = () => {
+  $("section:eq(1) table tr[data-qa='pull-request-row']").each(
+    (pullRequestRowIndex, pullRequestRowElement) => {
+      const myPullRequest = pullRequests.authored[pullRequestRowIndex];
+      addOpendDaysText(pullRequestRowElement, myPullRequest.created_on);
+    }
+  );
+}
+
+const clickReadmoreButtonIfExist = setInterval(() => {
+  if ($('p button').length) {
+      $('p button').click();
+      clearInterval(clickReadmoreButtonIfExist);
   }
-);
+}, 1000);
+
+setTimeout(DecoratioPullRequestsToReview, 2000);
+setTimeout(DecorationYourPullRequests, 2000);
